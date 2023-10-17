@@ -20,6 +20,9 @@ class CounterCubit extends Cubit<int> {
   CounterCubit({this.inisialData = 0}) : super(inisialData);
 
   int inisialData;
+  int? current;
+  int? next;
+
   void tambahData() {
     emit(state + 1);
   }
@@ -27,10 +30,26 @@ class CounterCubit extends Cubit<int> {
   void kurangData() {
     emit(state - 1);
   }
+
+  // Observer
+  // Fitur Bloc untuk memantau data
+  @override
+  void onChange(Change<int> change) {
+    super.onChange(change);
+    print(change);
+    current = change.currentState;
+    next = change.nextState;
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
+    print(error);
+  }
 }
 
 class HomePage extends StatelessWidget {
-  CounterCubit myCounter = CounterCubit(inisialData: 18);
+  CounterCubit myCounter = CounterCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -46,26 +65,25 @@ class HomePage extends StatelessWidget {
             stream: myCounter.stream,
             builder: (context, snapshot) {
               return Center(
-                child: Text(
-                  "${snapshot.data}",
-                  style: const TextStyle(fontSize: 50),
+                child: Column(
+                  children: [
+                    Text(
+                      "${snapshot.data}",
+                      style: const TextStyle(fontSize: 50),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Current : ${myCounter.current}",
+                      style: const TextStyle(fontSize: 50),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Next : ${myCounter.next}",
+                      style: const TextStyle(fontSize: 50),
+                    ),
+                  ],
                 ),
               );
-              // if (snapshot.connectionState == ConnectionState.waiting) {
-              //   return const Center(
-              //     child: Text(
-              //       "Loading...",
-              //       style: TextStyle(fontSize: 50),
-              //     ),
-              //   );
-              // } else {
-              //   return Center(
-              //     child: Text(
-              //       "${snapshot.data}",
-              //       style: const TextStyle(fontSize: 50),
-              //     ),
-              //   );
-              // }
             },
           ),
           const SizedBox(height: 20),
