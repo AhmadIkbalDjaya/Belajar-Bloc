@@ -1,68 +1,65 @@
 import 'package:belajar_bloc/bloc/counter.dart';
+import 'package:belajar_bloc/pages/data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  Counter mycounter = Counter(init: 2);
-
   @override
   Widget build(BuildContext context) {
+    Counter mycounter = BlocProvider.of<Counter>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("BLOC CONSUMER"),
+        title: const Text("BLOC PROVIDER"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BlocConsumer<Counter, int>(
-            bloc: mycounter,
-            builder: (context, state) {
-              return Text(
-                "$state",
-                style: const TextStyle(fontSize: 50),
-              );
-            },
-            buildWhen: (previous, current) {
-              if (current >= 10) {
-                return true;
-              } else {
-                return false;
-              }
-            },
-            listener: (context, state) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  duration: Duration(seconds: 1),
-                  content: Text("Genap"),
-                ),
-              );
-            },
-            listenWhen: (previous, current) {
-              if (current % 2 == 0) {
-                return true;
-              } else {
-                return false;
-              }
-            },
-          ),
-          const SizedBox(height: 50),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(
-                onPressed: () {
-                  mycounter.decrement();
-                },
-                icon: const Icon(Icons.remove),
+              Material(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(25),
+                child: InkWell(
+                  onTap: () {
+                    mycounter.decrement();
+                  },
+                  borderRadius: BorderRadius.circular(25),
+                  child: const SizedBox(
+                    height: 100,
+                    width: 70,
+                    child: Center(
+                      child: Icon(
+                        Icons.remove,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              IconButton(
-                onPressed: () {
-                  mycounter.increment();
-                },
-                icon: const Icon(Icons.add),
+              const DataWidget(),
+              Material(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(25),
+                child: InkWell(
+                  onTap: () {
+                    mycounter.increment();
+                  },
+                  borderRadius: BorderRadius.circular(25),
+                  child: const SizedBox(
+                    height: 100,
+                    width: 70,
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
