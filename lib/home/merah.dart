@@ -1,20 +1,23 @@
 import 'package:belajar_bloc/bloc/counter.dart';
-import 'package:belajar_bloc/pages/center_widget.dart';
+import 'package:belajar_bloc/home/kuning.dart';
 import 'package:flutter/material.dart';
 
-class DataWidget extends StatelessWidget {
-  const DataWidget({
+class Merah extends StatelessWidget {
+  Merah(
+    // this.mycounter, 
+    {
     super.key,
   });
 
+  // Counter mycounter;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
-      height: 100,
       width: 200,
-      child: const CenterWidget(),
+      height: 200,
+      color: Colors.red,
+      child: Kuning(),
     );
   }
 }
