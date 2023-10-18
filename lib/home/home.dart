@@ -9,7 +9,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Counter mycounter = Counter();
-    Counter mycounter = BlocProvider.of<Counter>(context);
+    // Counter mycounter = BlocProvider.of<Counter>(context);
+    Counter mycounter = context.read<Counter>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("DEPENDENCY INJECTION"),
