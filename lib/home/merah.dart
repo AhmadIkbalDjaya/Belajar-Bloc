@@ -3,13 +3,11 @@ import 'package:belajar_bloc/home/kuning.dart';
 import 'package:flutter/material.dart';
 
 class Merah extends StatelessWidget {
-  Merah(
-    // this.mycounter, 
+  const Merah(
     {
     super.key,
   });
 
-  // Counter mycounter;
 
   @override
   Widget build(BuildContext context) {
