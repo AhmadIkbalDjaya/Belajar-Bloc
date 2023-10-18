@@ -16,20 +16,21 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return BlocProvider.value(
-                  value: mycounter,
-                  child: const OtherPage(),
-                );
-                // return BlocProvider(
-                //   create: mycounter,
-                //   child: const OtherPage(),
-                // );
-              },
-            ),
-          );
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     builder: (context) {
+          //       return BlocProvider.value(
+          //         value: mycounter,
+          //         child: const OtherPage(),
+          //       );
+          //       // return BlocProvider(
+          //       //   create: mycounter,
+          //       //   child: const OtherPage(),
+          //       // );
+          //     },
+          //   ),
+          // );
+          Navigator.pushNamed(context, "/other");
         },
         child: const Icon(
           Icons.navigate_next_outlined,
