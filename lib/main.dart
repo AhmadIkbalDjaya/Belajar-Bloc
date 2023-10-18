@@ -1,7 +1,6 @@
+import 'package:belajar_bloc/app.dart';
 import 'package:belajar_bloc/bloc/counter.dart';
-import 'package:belajar_bloc/home/home.dart';
-import 'package:belajar_bloc/other/other.dart';
-import 'package:belajar_bloc/routes/routes.dart';
+import 'package:belajar_bloc/bloc/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,32 +11,30 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  // final Counter mycounter = Counter();
-  final router = MyRouter();
-
+  final ThemeBloc mytheme = ThemeBloc();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // home: BlocProvider(
-      //   create: (context) => Counter(),
-      //   child: const HomePage(),
-      // ),
-
-      // Named Route
-      // initialRoute: "/",
-      // routes: {
-      //   "/": (context) => BlocProvider.value(
-      //         value: mycounter,
-      //         child: const HomePage(),
-      //       ),
-      //   "/other": (context) => BlocProvider.value(
-      //         value: mycounter,
-      //         child: const OtherPage(),
-      //       ),
-      // },
-
-      // Generated Route
-      onGenerateRoute: router.onRoute,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CounterBloc()),
+        BlocProvider(create: (context) => ThemeBloc()),
+      ],
+      child: const App(),
     );
+    // return BlocProvider(
+    //   create: (context) => mytheme,
+    //   child: BlocBuilder<ThemeBloc, bool>(
+    //     bloc: mytheme,
+    //     builder: (context, state) {
+    //       return MaterialApp(
+    //         theme: state == true ? ThemeData.light() : ThemeData.dark(),
+    //         home: BlocProvider(
+    //           create: (context) => CounterBloc(),
+    //           child: HomePage(),
+    //         ),
+    //       );
+    //     },
+    //   ),
+    // );
   }
 }
