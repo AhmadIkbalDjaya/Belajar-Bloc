@@ -16,17 +16,101 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            BlocBuilder<CounterBloc, int>(
-              bloc: mycounter,
-              builder: (context, state) {
-                return Text(
-                  "$state",
-                  style: const TextStyle(
-                    fontSize: 50,
-                  ),
-                );
-              },
+            MultiBlocListener(
+              listeners: [
+                // listerner counter
+                BlocListener<CounterBloc, int>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Di Atas 10"),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  },
+                  listenWhen: (previous, current) {
+                    if (current > 10) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  },
+                ),
+                BlocListener<ThemeBloc, bool>(
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Tema Gelap"),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  },
+                  listenWhen: (previous, current) {
+                    if (!current) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  },
+                )
+              ],
+              child: BlocBuilder<CounterBloc, int>(
+                bloc: mycounter,
+                builder: (context, state) {
+                  return Text(
+                    "$state",
+                    style: const TextStyle(
+                      fontSize: 50,
+                    ),
+                  );
+                },
+              ),
             ),
+            // BlocListener<ThemeBloc, bool>(
+            //   listener: (context, state) {
+            //     ScaffoldMessenger.of(context).showSnackBar(
+            //       const SnackBar(
+            //         content: Text("Tema Gelap"),
+            //         duration: Duration(seconds: 1),
+            //       ),
+            //     );
+            //   },
+            //   listenWhen: (previous, current) {
+            //     if (current == false) {
+            //       return true;
+            //     } else {
+            //       return false;
+            //     }
+            //   },
+            //   child: BlocListener<CounterBloc, int>(
+            //     listener: (context, state) {
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //         const SnackBar(
+            //           content: Text("Di Atas 10"),
+            //           duration: Duration(seconds: 1),
+            //         ),
+            //       );
+            //     },
+            //     listenWhen: (previous, current) {
+            //       if (current > 10) {
+            //         return true;
+            //       } else {
+            //         return false;
+            //       }
+            //     },
+            //     child: BlocBuilder<CounterBloc, int>(
+            //       bloc: mycounter,
+            //       builder: (context, state) {
+            //         return Text(
+            //           "$state",
+            //           style: const TextStyle(
+            //             fontSize: 50,
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

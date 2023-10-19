@@ -21,20 +21,5 @@ class MyApp extends StatelessWidget {
       ],
       child: const App(),
     );
-    // return BlocProvider(
-    //   create: (context) => mytheme,
-    //   child: BlocBuilder<ThemeBloc, bool>(
-    //     bloc: mytheme,
-    //     builder: (context, state) {
-    //       return MaterialApp(
-    //         theme: state == true ? ThemeData.light() : ThemeData.dark(),
-    //         home: BlocProvider(
-    //           create: (context) => CounterBloc(),
-    //           child: HomePage(),
-    //         ),
-    //       );
-    //     },
-    //   ),
-    // );
   }
 }
