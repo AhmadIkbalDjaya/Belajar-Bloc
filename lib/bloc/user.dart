@@ -3,17 +3,17 @@ import 'package:bloc/bloc.dart';
 class UserBloc extends Cubit<Map<String, dynamic>> {
   UserBloc() : super({"name": "", "age": 18});
 
-  void changeName(String newName) {
+  void changeAge(int newAge) {
     emit({
-      "name": newName,
-      "age": state["age"],
+      "name": state['name'],
+      "age": newAge,
     });
   }
 
-  void changeAge(int newAge) {
+  void changeName(String newName) {
     emit({
-      "name": state["name"],
-      "age": newAge,
+      "name": newName,
+      "age": state['age'],
     });
   }
 }
